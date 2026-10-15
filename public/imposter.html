@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imposter Game</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="imposter.css">
+</head>
+<body>
+  <a href="/" class="home-btn">← Home</a>
+  
+  <div id="lobby-screen" class="screen">
+    <div class="container">
+      <h1>Imposter</h1>
+      <p class="subtitle">One of you doesn't know the word</p>
+      <div class="lobby-options">
+        <input type="text" id="player-name" placeholder="Enter your name" maxlength="15">
+        <button id="create-lobby-btn" class="btn">Create Lobby</button>
+        <div class="divider">OR</div>
+        <input type="text" id="lobby-code-input" placeholder="Enter lobby code" maxlength="5">
+        <button id="join-lobby-btn" class="btn">Join Lobby</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="waiting-screen" class="screen hidden">
+    <div class="container">
+      <h1>Lobby</h1>
+      <div class="lobby-code-display">
+        <span>Lobby Code:</span>
+        <span id="display-lobby-code" class="code"></span>
+      </div>
+      <div id="players-list" class="players-list"></div>
+      <p id="players-needed-msg" class="players-needed-msg">Need at least 3 players to start</p>
+      <button id="start-game-btn" class="btn hidden">Start Game</button>
+      <p class="waiting-text">Waiting for host to start...</p>
+      <div class="info-box">
+        <p><strong>How to Play:</strong></p>
+        <p>• One player is secretly the Imposter</p>
+        <p>• Everyone else gets the same word</p>
+        <p>• Give clues about your word</p>
+        <p>• Vote for who you think is the Imposter!</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="word-screen" class="screen hidden">
+    <div class="container center">
+      <div id="role-display" class="role-display"></div>
+      <h2>Your Word</h2>
+      <div id="word-display" class="word-display"></div>
+      <p class="waiting-text">Memorize this! Game starting in 5 seconds...</p>
+    </div>
+  </div>
+
+  <div id="clue-screen" class="screen hidden">
+    <div class="game-container">
+      <div class="game-header">
+        <h2>Give Your Clue</h2>
+        <p class="instructions">Describe the word without saying it!</p>
+      </div>
+      
+      <div id="clues-list" class="clues-list"></div>
+      
+      <div id="clue-input-panel" class="clue-input-panel hidden">
+        <p class="turn-indicator">Your Turn!</p>
+        <input type="text" id="clue-input" placeholder="Enter your clue..." maxlength="50">
+        <button id="submit-clue-btn" class="btn">Submit Clue</button>
+      </div>
+      
+      <div id="waiting-clue" class="waiting-panel hidden">
+        <p class="waiting-text">Waiting for <span id="current-player-name"></span> to give a clue...</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="voting-screen" class="screen hidden">
+    <div class="game-container">
+      <div class="game-header">
+        <h2>Vote for the Imposter</h2>
+        <p class="instructions">Who do you think is the Imposter?</p>
+      </div>
+      
+      <div id="all-clues" class="all-clues"></div>
+      
+      <div id="vote-panel" class="vote-panel">
+        <h3>Cast Your Vote</h3>
+        <div id="vote-buttons" class="vote-buttons"></div>
+      </div>
+      
+      <div id="waiting-votes" class="waiting-panel hidden">
+        <p class="waiting-text">Waiting for all votes...</p>
+        <div id="vote-status"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="results-screen" class="screen hidden">
+    <div class="container center">
+      <h1 id="results-title">Results</h1>
+      
+      <div id="results-content" class="results-content"></div>
+      
+      <button id="play-again-btn" class="btn hidden">Play Again</button>
+      <p class="waiting-text hidden" id="waiting-host-text">Waiting for host to start next round...</p>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="imposter.js"></script>
+  <script src="secret.js"></script>
+</body>
+</html>

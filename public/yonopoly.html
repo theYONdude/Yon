@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yonopoly</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="yonopoly.css">
+</head>
+<body>
+  <a href="/" class="home-btn">← Home</a>
+  <div id="lobby-screen" class="screen">
+    <div class="container center">
+      <h1>Yonopoly</h1>
+      <p class="subtitle">Monopoly meets Yon cards!</p>
+      <div class="form-group">
+        <input type="text" id="player-name" placeholder="Enter your name" maxlength="15">
+      </div>
+      <button id="create-lobby-btn" class="btn">Create Lobby</button>
+      <div class="divider">OR</div>
+      <div class="form-group">
+        <input type="text" id="lobby-code-input" placeholder="Enter lobby code" maxlength="5">
+        <button id="join-lobby-btn" class="btn">Join Lobby</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="waiting-screen" class="screen hidden">
+    <div class="container">
+      <h1>Lobby</h1>
+      <div class="lobby-code-display">
+        <span>Lobby Code:</span>
+        <span id="display-lobby-code" class="code"></span>
+      </div>
+      <div id="players-list" class="players-list"></div>
+      <p id="players-needed-msg" class="players-needed-msg">Need 2-4 players to start</p>
+      <button id="start-game-btn" class="btn hidden">Start Game</button>
+      <p class="waiting-text">Waiting for host to start...</p>
+      <div class="info-box">
+        <p><strong>Yonopoly Rules:</strong></p>
+        <p>• Roll dice and move around the board</p>
+        <p>• Buy properties and collect rent</p>
+        <p>• Draw Yon cards for special powers!</p>
+        <p>• Use +4 cards to steal from opponents</p>
+        <p>• Last player standing wins!</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="game-screen" class="screen hidden">
+    <div class="game-container">
+      <div class="top-bar">
+        <div class="turn-indicator">
+          <span id="current-turn">Your Turn!</span>
+        </div>
+        <div class="my-money">
+          <span>💰 $</span><span id="my-cash">1500</span>
+        </div>
+      </div>
+
+      <div class="main-area">
+        <div class="board-section">
+          <div id="game-board" class="game-board"></div>
+        </div>
+
+        <div class="sidebar">
+          <div class="players-panel">
+            <h3>Players</h3>
+            <div id="players-status"></div>
+          </div>
+
+          <div class="actions-panel">
+            <h3>Actions</h3>
+            <button id="roll-dice-btn" class="btn action-btn">🎲 Roll Dice</button>
+            <button id="buy-property-btn" class="btn action-btn hidden">🏠 Buy Property</button>
+            <button id="end-turn-btn" class="btn action-btn hidden">✓ End Turn</button>
+            <div id="dice-result" class="dice-result"></div>
+          </div>
+
+          <div class="yon-hand-panel">
+            <h3>Your Yon Cards</h3>
+            <div id="yon-hand" class="yon-hand"></div>
+          </div>
+
+          <div id="game-log" class="game-log"></div>
+        </div>
+      </div>
+
+      <div id="property-popup" class="popup hidden">
+        <div class="popup-content">
+          <h3 id="popup-title"></h3>
+          <p id="popup-desc"></p>
+          <div id="popup-actions"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="results-screen" class="screen hidden">
+    <div class="container center">
+      <h1 id="winner-announcement">🎉 Winner! 🎉</h1>
+      <div id="final-standings" class="final-standings"></div>
+      <button id="play-again-btn" class="btn hidden">Play Again</button>
+      <p class="waiting-text hidden" id="waiting-host-text">Waiting for host to start next game...</p>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="yonopoly.js"></script>
+  <script src="secret.js"></script>
+</body>
+</html>

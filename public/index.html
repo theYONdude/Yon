@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiplayer Blackjack</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="/" class="home-btn">← Home</a>
+  
+  <div id="lobby-screen" class="screen">
+    <div class="container">
+      <h1>Blackjack</h1>
+      <p class="subtitle">Beat the dealer with friends</p>
+      <div class="lobby-options">
+        <input type="text" id="player-name" placeholder="Enter your name" maxlength="15">
+        <button id="create-lobby-btn" class="btn">Create Lobby</button>
+        <div class="divider">OR</div>
+        <input type="text" id="lobby-code-input" placeholder="Enter lobby code" maxlength="6">
+        <button id="join-lobby-btn" class="btn">Join Lobby</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="waiting-screen" class="screen hidden">
+    <div class="container">
+      <h1>Lobby</h1>
+      <div class="lobby-code-display">
+        <span>Lobby Code:</span>
+        <span id="display-lobby-code" class="code"></span>
+      </div>
+      <div id="players-list" class="players-list"></div>
+      <p id="players-needed-msg" class="players-needed-msg">Need at least 2 players to start</p>
+      <button id="start-game-btn" class="btn hidden">Start Game</button>
+      <p class="waiting-text">Waiting for host to start...</p>
+    </div>
+  </div>
+
+  <div id="game-screen" class="screen hidden">
+    <div class="game-container">
+      <div id="dealer-section" class="dealer-section">
+        <div class="dealer-head">
+          <div class="dealer-avatar">🤵</div>
+          <div id="dealer-bubble" class="dealer-bubble">
+            <p id="dealer-says"></p>
+            <div id="bet-controls" class="bet-controls hidden">
+              <div class="chips">
+                <button class="chip" data-amt="10">10</button>
+                <button class="chip" data-amt="25">25</button>
+                <button class="chip" data-amt="50">50</button>
+                <button class="chip" data-amt="100">100</button>
+                <button class="chip" data-amt="500">500</button>
+                <button class="chip chip-max" data-amt="max">All in</button>
+              </div>
+              <div class="bet-row">
+                <span class="bet-prefix">$</span>
+                <input type="number" id="bet-input" placeholder="0" min="10" step="10">
+                <button id="clear-bet-btn" class="btn btn-ghost" type="button">Clear</button>
+                <button id="place-bet-btn" class="btn">Place Bet</button>
+              </div>
+              <p class="bet-hint">Balance: $<span id="bet-balance">0</span></p>
+            </div>
+          </div>
+        </div>
+        <div id="dealer-hand" class="hand"></div>
+        <p id="dealer-value" class="hand-value"></p>
+      </div>
+
+      <div id="players-section" class="players-section"></div>
+
+      <div id="actions-panel" class="actions-panel hidden">
+        <p class="turn-indicator">Your Turn</p>
+        <div class="action-buttons">
+          <button id="hit-btn" class="btn action-btn">Hit</button>
+          <button id="stand-btn" class="btn action-btn">Stand</button>
+          <button id="double-btn" class="btn action-btn">Double Down</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+  <script src="secret.js"></script>
+</body>
+</html>

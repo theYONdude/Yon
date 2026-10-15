@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yon - Card Game</title>
+  <link rel="stylesheet" href="theme.css">
+  <link rel="stylesheet" href="yon.css">
+</head>
+<body>
+  <a href="/" class="home-btn">← Home</a>
+  
+  <div id="lobby-screen" class="screen">
+    <div class="container">
+      <h1>Yon</h1>
+      <p class="subtitle">The Ultimate Card Showdown</p>
+      <div class="lobby-options">
+        <input type="text" id="player-name" placeholder="Enter your name" maxlength="15">
+        <button id="create-lobby-btn" class="btn">Create Lobby</button>
+        <div class="divider">OR</div>
+        <input type="text" id="lobby-code-input" placeholder="Enter lobby code" maxlength="5">
+        <button id="join-lobby-btn" class="btn">Join Lobby</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="waiting-screen" class="screen hidden">
+    <div class="container">
+      <h1>Lobby</h1>
+      <div class="lobby-code-display">
+        <span>Lobby Code:</span>
+        <span id="display-lobby-code" class="code"></span>
+      </div>
+      <div id="players-list" class="players-list"></div>
+      <p id="players-needed-msg" class="players-needed-msg">Need at least 2 players to start</p>
+      <button id="start-game-btn" class="btn hidden">Start Game</button>
+      <p class="waiting-text">Waiting for host to start...</p>
+      <div class="info-box">
+        <p><strong>How to Play:</strong></p>
+        <p>• Match cards by color or number</p>
+        <p>• Special cards: Skip, Reverse, Draw Two</p>
+        <p>• Wild cards can be played anytime</p>
+        <p>• First to empty your hand wins!</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="game-screen" class="screen hidden">
+    <div id="secret-btn" style="position:absolute;top:10px;right:10px;width:20px;height:20px;opacity:0.05;cursor:pointer;z-index:999;"></div>
+    <div class="game-layout">
+      <div id="opponents-area" class="opponents-area"></div>
+      
+      <div class="center-area">
+        <div class="deck-and-pile">
+          <div id="draw-pile" class="card-stack draw-pile">
+            <div class="card card-back">
+              <span class="card-back-text">YON</span>
+            </div>
+            <span class="pile-label">Draw</span>
+          </div>
+          <div id="discard-pile" class="card-stack discard-pile">
+            <div id="top-card" class="card"></div>
+            <span class="pile-label">Discard</span>
+          </div>
+        </div>
+        <div id="current-color" class="current-color"></div>
+        <div id="game-message" class="game-message"></div>
+      </div>
+
+      <div id="my-hand" class="my-hand"></div>
+    </div>
+  </div>
+
+  <div id="results-screen" class="screen hidden">
+    <div class="container center">
+      <h1 id="winner-announcement"></h1>
+      <div id="final-standings" class="final-standings"></div>
+      <button id="play-again-btn" class="btn hidden">Play Again</button>
+      <p class="waiting-text hidden" id="waiting-host-text">Waiting for host to start next round...</p>
+    </div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="yon.js"></script>
+  <script src="secret.js"></script>
+</body>
+</html>

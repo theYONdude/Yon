@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Hub — Play with friends</title>
+  <link rel="stylesheet" href="theme.css">
+  <style>
+    body { display: flex; flex-direction: column; }
+
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1080px; width: 100%; margin: 0 auto; padding: 22px 24px;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -0.02em; }
+    .logo-mark {
+      width: 28px; height: 28px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: grid; place-items: center; font-size: 14px;
+    }
+    .live {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; color: var(--muted);
+    }
+    .live::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--success); box-shadow: 0 0 0 4px rgba(34,197,94,.15);
+    }
+
+    main { flex: 1; max-width: 1080px; width: 100%; margin: 0 auto; padding: 48px 24px 64px; }
+
+    .hero { text-align: center; max-width: 640px; margin: 0 auto 56px; animation: rise .5s ease-out; }
+    .eyebrow {
+      display: inline-block; margin-bottom: 18px; padding: 5px 12px;
+      font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      color: #c4b5fd; background: var(--accent-soft); border: 1px solid rgba(139,92,246,.3); border-radius: 999px;
+    }
+    .hero h1 { font-size: clamp(2.4rem, 6vw, 3.8rem); line-height: 1.05; letter-spacing: -0.04em; margin-bottom: 16px; }
+    .hero h1 span {
+      background: linear-gradient(90deg, #c4b5fd, #818cf8);
+      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p { color: var(--muted); font-size: 1.1rem; }
+
+    .games { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+
+    .game-card {
+      --c: #8b5cf6;
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
+      padding: 26px;
+      color: var(--text); text-decoration: none;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: transform .2s, border-color .2s, box-shadow .2s;
+      animation: rise .5s ease-out both;
+    }
+    .game-card:nth-child(2) { animation-delay: .06s; }
+    .game-card:nth-child(3) { animation-delay: .12s; }
+    .game-card:nth-child(4) { animation-delay: .18s; }
+    .game-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(400px 160px at 0% 0%, color-mix(in srgb, var(--c) 18%, transparent), transparent 70%);
+      opacity: .7; transition: opacity .2s; pointer-events: none;
+    }
+    .game-card:hover { transform: translateY(-4px); border-color: color-mix(in srgb, var(--c) 50%, transparent); box-shadow: var(--shadow); }
+    .game-card:hover::before { opacity: 1; }
+
+    .icon {
+      position: relative; width: 48px; height: 48px; margin-bottom: 22px;
+      display: grid; place-items: center; font-size: 22px;
+      background: color-mix(in srgb, var(--c) 16%, transparent);
+      border: 1px solid color-mix(in srgb, var(--c) 35%, transparent);
+      border-radius: 12px;
+    }
+    .game-card h2 { position: relative; text-align: left; font-size: 1.3rem; margin-bottom: 6px; }
+    .game-card p { position: relative; color: var(--muted); font-size: .95rem; flex: 1; }
+    .meta {
+      position: relative; display: flex; justify-content: space-between; align-items: center;
+      margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border);
+      font-size: 13px; color: var(--muted);
+    }
+    .play { color: var(--text); font-weight: 600; transition: transform .2s; }
+    .game-card:hover .play { transform: translateX(3px); }
+
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 72px; }
+    .step { display: flex; gap: 14px; }
+    .step b {
+      flex: none; width: 28px; height: 28px; border-radius: 50%;
+      display: grid; place-items: center; font-size: 13px;
+      background: var(--surface-2); border: 1px solid var(--border-strong);
+    }
+    .step h3 { text-align: left; color: var(--text); text-transform: none; letter-spacing: 0; font-size: .95rem; margin-bottom: 2px; }
+    .step p { color: var(--muted); font-size: .9rem; }
+
+    footer { text-align: center; padding: 24px; font-size: 13px; color: #5f5f70; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <div class="logo"><div class="logo-mark">🎮</div>Game Hub</div>
+    <div class="live">Multiplayer online</div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <span class="eyebrow">No sign-up · Free</span>
+      <h1>Game night,<br><span>in your browser.</span></h1>
+      <p>Pick a game, share the lobby code, and play live with friends.</p>
+    </section>
+
+    <section class="games">
+      <a href="/blackjack" class="game-card" style="--c:#10b981">
+        <div class="icon">♠️</div>
+        <h2>Blackjack</h2>
+        <p>The classic casino card game. Get to 21 or beat the dealer.</p>
+        <div class="meta"><span>2+ players</span><span class="play">Play →</span></div>
+      </a>
+
+      <a href="/imposter" class="game-card" style="--c:#f43f5e">
+        <div class="icon">🕵️</div>
+        <h2>Imposter</h2>
+        <p>Everyone gets the same word except one person. Give clues and vote them out.</p>
+        <div class="meta"><span>3+ players</span><span class="play">Play →</span></div>
+      </a>
+
+      <a href="/yon" class="game-card" style="--c:#f59e0b">
+        <div class="icon">🎴</div>
+        <h2>Yon</h2>
+        <p>Match colors and numbers. First to empty their hand wins.</p>
+        <div class="meta"><span>2+ players</span><span class="play">Play →</span></div>
+      </a>
+      <a href="/yonopoly" class="game-card" style="--c:#0ea5e9">
+        <div class="icon">🎲</div>
+        <h2>Yonopoly</h2>
+        <p>Monopoly meets Yon. Buy properties, collect rent, and play +4s to steal.</p>
+        <div class="meta"><span>2–4 players</span><span class="play">Play →</span></div>
+      </a>
+    </section>
+
+    <section class="steps">
+      <div class="step"><b>1</b><div><h3>Choose a game</h3><p>Enter your name and create a lobby.</p></div></div>
+      <div class="step"><b>2</b><div><h3>Share the code</h3><p>Friends join with your lobby code.</p></div></div>
+      <div class="step"><b>3</b><div><h3>Play live</h3><p>Everything syncs in real time.</p></div></div>
+    </section>
+  </main>
+
+  <footer>Game Hub · Real-time multiplayer</footer>
+</body>
+</html>

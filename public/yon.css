@@ -1,0 +1,212 @@
+/* Yon — game-specific styles (base in theme.css) */
+:root {
+  --accent: #f59e0b;
+  --accent-2: #ea580c;
+  --accent-soft: rgba(245, 158, 11, 0.13);
+  --c-red: #ef4444;
+  --c-blue: #3b82f6;
+  --c-green: #22c55e;
+  --c-yellow: #facc15;
+}
+
+/* ---------- Game layout ---------- */
+#game-screen { padding: 0; align-items: stretch; }
+.game-layout {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 72px 20px 20px;
+}
+
+.opponents-area { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; }
+.opponent {
+  min-width: 130px;
+  padding: 12px 16px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: border-color .25s, box-shadow .25s;
+}
+.opponent.active { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+.opponent-name { font-weight: 600; font-size: .9rem; margin-bottom: 8px; }
+.opponent-cards { display: flex; justify-content: center; }
+.mini-card {
+  width: 16px; height: 24px;
+  margin-left: -5px;
+  background: linear-gradient(160deg, #27272a, #18181b);
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+}
+.mini-card:first-child { margin-left: 0; }
+.card-count { margin-top: 6px; font-size: .78rem; color: var(--muted); }
+
+.center-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 24px 0;
+}
+.deck-and-pile { display: flex; align-items: center; gap: 36px; }
+.card-stack { display: flex; flex-direction: column; align-items: center; }
+.pile-label { margin-top: 10px; font-size: .75rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.draw-pile { cursor: pointer; transition: transform .2s; }
+.draw-pile:hover { transform: translateY(-3px); }
+
+/* ---------- Cards ---------- */
+.card {
+  position: relative;
+  width: 80px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #fff;
+  border-radius: 12px;
+  border: 3px solid #fafafa;
+  box-shadow: 0 8px 20px rgba(0,0,0,.45);
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s, opacity .2s;
+}
+.card.red    { background: var(--c-red); }
+.card.blue   { background: var(--c-blue); }
+.card.green  { background: var(--c-green); }
+.card.yellow { background: var(--c-yellow); color: #1c1917; }
+.card.wild {
+  background: conic-gradient(from 45deg, var(--c-red) 0 25%, var(--c-blue) 0 50%, var(--c-green) 0 75%, var(--c-yellow) 0);
+}
+.card.wild .card-value {
+  background: #18181b;
+  border-radius: 50%;
+  width: 52px; height: 52px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .9em;
+}
+.card-back {
+  background: linear-gradient(160deg, #27272a, #09090b);
+  border-color: #3f3f46;
+}
+.card-back-text {
+  font-size: .9rem;
+  letter-spacing: .2em;
+  background: linear-gradient(90deg, var(--c-red), var(--c-yellow), var(--c-green), var(--c-blue));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.card-value { font-size: 1.3em; text-shadow: 0 2px 4px rgba(0,0,0,.2); }
+.card-symbol, .card-symbol-bottom { position: absolute; font-size: .45em; }
+.card-symbol { top: 6px; left: 8px; }
+.card-symbol-bottom { bottom: 6px; right: 8px; transform: rotate(180deg); }
+
+.current-color {
+  padding: 6px 14px;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  border: 1px solid var(--border-strong);
+  background: var(--surface);
+}
+.current-color.red    { background: var(--c-red); border-color: transparent; }
+.current-color.blue   { background: var(--c-blue); border-color: transparent; }
+.current-color.green  { background: var(--c-green); border-color: transparent; color: #052e16; }
+.current-color.yellow { background: var(--c-yellow); border-color: transparent; color: #1c1917; }
+
+.game-message { min-height: 28px; font-weight: 600; text-align: center; }
+
+/* ---------- Hand ---------- */
+.my-hand {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+.my-hand .card:hover { transform: translateY(-14px); box-shadow: 0 16px 30px rgba(0,0,0,.55); z-index: 10; }
+.my-hand .card.playable { box-shadow: 0 0 0 3px var(--accent-soft), 0 8px 20px rgba(0,0,0,.45); }
+.my-hand .card.not-playable { opacity: .4; cursor: not-allowed; }
+.my-hand .card.not-playable:hover { transform: none; box-shadow: 0 8px 20px rgba(0,0,0,.45); }
+
+@keyframes dealCard { from { transform: translateY(-120px) rotate(10deg); opacity: 0; } to { transform: none; opacity: 1; } }
+.card.dealing { animation: dealCard .4s ease-out; }
+@keyframes playCard { 50% { transform: scale(1.12) rotate(6deg); } }
+.card.playing { animation: playCard .3s ease-out; }
+
+/* ---------- Color picker ---------- */
+.color-picker {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  padding: 28px;
+  text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  box-shadow: 0 0 0 100vmax rgba(0,0,0,.6), var(--shadow);
+}
+.color-options { display: flex; gap: 12px; }
+.color-btn {
+  width: 60px; height: 60px;
+  border: 3px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: transform .15s, border-color .15s;
+}
+.color-btn:hover { transform: translateY(-3px); border-color: #fff; }
+.color-btn.red    { background: var(--c-red); }
+.color-btn.blue   { background: var(--c-blue); }
+.color-btn.green  { background: var(--c-green); }
+.color-btn.yellow { background: var(--c-yellow); }
+
+/* ---------- Results ---------- */
+.final-standings { margin: 24px 0; display: flex; flex-direction: column; gap: 8px; }
+.standing-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+}
+.standing-item.winner { border-color: rgba(250,204,21,.5); background: rgba(250,204,21,.08); }
+.standing-rank { font-family: var(--mono); color: var(--muted); }
+.standing-item.winner .standing-rank { color: var(--c-yellow); }
+.standing-name { flex: 1; text-align: left; font-weight: 600; }
+.standing-cards { color: var(--muted); font-size: .85rem; }
+
+/* ---------- Misc ---------- */
+.direction-indicator { font-size: 1.6rem; margin: 8px 0; }
+.yon-btn {
+  position: fixed;
+  right: 24px; bottom: 160px;
+  z-index: 50;
+  width: 76px; height: 76px;
+  font: inherit; font-weight: 800; letter-spacing: .05em;
+  color: #fff;
+  background: linear-gradient(180deg, var(--accent), var(--accent-2));
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 10px 30px -8px var(--accent);
+  transition: transform .15s;
+}
+.yon-btn:hover { transform: scale(1.06); }
+
+@media (max-width: 768px) {
+  .card { width: 60px; height: 90px; font-size: 1.4rem; border-width: 2px; }
+  .card.wild .card-value { width: 38px; height: 38px; }
+  .deck-and-pile { gap: 24px; }
+  .my-hand { gap: 4px; padding: 12px; }
+}
